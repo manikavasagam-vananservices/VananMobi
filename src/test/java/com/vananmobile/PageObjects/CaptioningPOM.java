@@ -1,9 +1,6 @@
 package com.vananmobile.PageObjects;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
@@ -137,15 +134,17 @@ public class CaptioningPOM extends AccessingElement {
     }
 
     public void selectSourceLanguage(String sourceLanguage) {
-        WebElement sourceElement = driver.findElement(By.id("srclang"));
+        WebElement sourceElement = driver.findElement(By.id("srclang-selectized"));
         sourceElement.sendKeys(sourceLanguage);
+        sourceElement.sendKeys(Keys.RETURN);
         //selectDropDown(sourceElement, sourceLanguage);
         //enterTestBoxValues(sourceElement, sourceLanguage);
     }
 
     public void selectTargetLanguage(String targetLanguage) {
-        WebElement targetElement = driver.findElement(By.id("trglang"));
+        WebElement targetElement = driver.findElement(By.id("trglang-selectized"));
         targetElement.sendKeys(targetLanguage);
+        targetElement.sendKeys(Keys.RETURN);
         //selectDropDown(targetElement, targetLanguage);
         //enterTestBoxValues(hoursElement, targetLanguage);
     }
