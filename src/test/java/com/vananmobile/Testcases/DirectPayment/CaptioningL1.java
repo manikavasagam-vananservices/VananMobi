@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,7 +53,7 @@ public class CaptioningL1 extends TestBase {
 
         sheet = workbook.getSheetAt(0);
 
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < sourceLanguages.size(); i++) {
             //driver.get(System.getProperty("website"));
             driver.get("https://vananservices.com/Captioning-Quote.php");
 
@@ -86,9 +87,10 @@ public class CaptioningL1 extends TestBase {
             } else  {
                 timeCode = timeCodes.get(i) * length.get(i).intValue();
             }
-            transCost = length.get(i) * transltranscCosts.get(i);
-            grandtotal = totalUnitCost + timeCode + transCost;
-            transcationCost = grandtotal * 0.05;
+            DecimalFormat decimalFormat = new DecimalFormat("##.00");
+            transCost = Double.parseDouble(decimalFormat.format(length.get(i) * transltranscCosts.get(i)));
+            grandtotal = Double.parseDouble(decimalFormat.format(totalUnitCost + timeCode + transCost));
+            transcationCost = Double.parseDouble(decimalFormat.format(grandtotal * 0.05));
             orderCost = grandtotal + transcationCost;
 
             unitStatus = checkStatus(unitCosts.get(i), captioningPOM.getBasePrice(), "Unit cost");
@@ -98,7 +100,7 @@ public class CaptioningL1 extends TestBase {
             } else {
                 timeCodeStatus = checkStatus(timeCode, captioningPOM.getTimeCodePrice(), "Time Code cost");
             }
-            transcationStatus = checkStatus(transCost, captioningPOM.getTranslationPrice(), "Transcription/Translation cost");
+            transStatus = checkStatus(transCost, captioningPOM.getTranslationPrice(), "Transcription/Translation cost");
             grandtotalStatus = checkStatus(grandtotal, captioningPOM.getGrandTotal(), "Grand Total");
             transcationStatus = checkStatus(transcationCost, captioningPOM.getTransactionFee(), "Transaction fee");
             orderStatus = checkStatus(orderCost, captioningPOM.getOrderTotal(), "Order total");
