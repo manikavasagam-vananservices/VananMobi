@@ -8,8 +8,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.vananmobile.Common.AppiumServerD;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -17,7 +21,7 @@ import org.testng.annotations.Test;
 import com.vananmobile.Common.TestBase;
 
 import com.vananmobile.PageObjects.TranslationPOM;
-
+import org.apache.maven.shared.utils.io.FileUtils;
 public class TranslationL1 extends TestBase {
 
     private static String username = "";
@@ -41,9 +45,10 @@ public class TranslationL1 extends TestBase {
     private String grandtotalStatus = "";
     private String transcationStatus = "";
     private String orderStatus = "";
+    AppiumServerD appiumServerD = new AppiumServerD();
 
     @Test
-    public void testStep() throws IOException {
+    public void testStep() throws Exception {
 
 
         sheet = workbook.getSheetAt(0);
@@ -65,6 +70,7 @@ public class TranslationL1 extends TestBase {
             translation.pageCount(pages.get(i).intValue()+"");
             translation.selectLanguageFrom(sourceLanguages.get(i));
             translation.selectLanguageTo(targetLanguages.get(i));
+            takeSnapShot(driver, "Transcription"+i+".jpg");
             String currentUrl = "";
             if (!processings.get(i).equalsIgnoreCase("Request")) {
 
@@ -137,6 +143,11 @@ public class TranslationL1 extends TestBase {
         capabilities.setCapability("browserName", MobileBrowserType.CHROME);
         driver = new AndroidDriver(new URL("http://0.0.0.0:4723/wd/hub"), capabilities);
         driver.manage().timeouts().implicitlyWait(60*2, TimeUnit.SECONDS);*/
+        if(!appiumServerD.checkIfServerIsRunnning()) {
+            appiumServerD.startServer();
+        } else {
+            System.out.println("Appium Server already running on Port - 4723");
+        }
         super.setCapabilities();
         readTranslateData();
         fileOutput = new FileOutputStream(file);
@@ -146,6 +157,11 @@ public class TranslationL1 extends TestBase {
     public void tearDown() {
 
         driver.quit();
+        if(appiumServerD.checkIfServerIsRunnning()) {
+            appiumServerD.stopServer();
+        }  else {
+            System.out.println("Appium Server already stopped on Port - 4723");
+        }
     }
 
     public static void readTranslateData() throws IOException {
@@ -166,5 +182,18 @@ public class TranslationL1 extends TestBase {
             cell = sheet.getRow(i).getCell(4);
             pages.add(cell.getNumericCellValue());
         }
+    }
+
+    public static void takeSnapShot(WebDriver webdriver, String fileWithPath) throws Exception{
+
+        //TakesScreenshot scrShot =((TakesScreenshot)webdriver);
+        String imageName =System.currentTimeMillis()+ ".png";
+        File scrFile = ((TakesScreenshot)webdriver).getScreenshotAs(OutputType.FILE);
+        FileUtils.copyFile(scrFile, new File("D://"+fileWithPath));
+        /*File SrcFile=scrShot.getScreenshotAs(OutputType.FILE);
+
+        File DestFile=new File(System.getProperty("user.dir") +"/"+fileWithPath);
+
+        FileUtils.copyFile(SrcFile, DestFile);*/
     }
 }
