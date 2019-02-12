@@ -37,7 +37,7 @@ public class AppiumServerD {
     }
 
     public boolean checkIfServerIsRunnning() {
-        int port = 4723;
+        int port = 4724;
         boolean isServerRunning = false;
         ServerSocket serverSocket;
         try {
