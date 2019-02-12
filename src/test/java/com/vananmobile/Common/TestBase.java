@@ -45,7 +45,7 @@ public class TestBase {
     private String  platformVersion = "7.0";
     private String deviceName = "33001f8921b473eb";
     private String  bName = "chrome";
-    private String  appiumUrl = "http://127.0.0.1:4724/wd/hub";
+    private String  appiumUrl = "http://0.0.0.0:4724/wd/hub";
 
     private void getConfiguration() {
 
