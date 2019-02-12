@@ -45,7 +45,7 @@ public class TestBase {
     private String  platformVersion = "7.0";
     private String deviceName = "33001f8921b473eb";
     private String  bName = "chrome";
-    private String  appiumUrl = "http://0.0.0.0:4723/wd/hub";
+    private String  appiumUrl = "http://0.0.0.0:4724/wd/hub";
 
     private void getConfiguration() {
 
@@ -70,9 +70,9 @@ public class TestBase {
     private void initDriver() {
         try {
             if (platform.equals("Android")) {
-                driver = new AndroidDriver(new URL("http://0.0.0.0:4723/wd/hub"), capabilities);
+                driver = new AndroidDriver(new URL("http://0.0.0.0:4724/wd/hub"), capabilities);
             } else if (platform.equals("ios")) {
-                driver = new IOSDriver(new URL("http://0.0.0.0:4723/wd/hub"), capabilities);
+                driver = new IOSDriver(new URL("http://0.0.0.0:4724/wd/hub"), capabilities);
             }
             driver.manage().timeouts().implicitlyWait(90, TimeUnit.SECONDS);
         } catch (MalformedURLException ex) {
