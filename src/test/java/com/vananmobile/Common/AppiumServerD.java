@@ -20,7 +20,7 @@ public class AppiumServerD {
 
         //Build the Appium service
         builder = new AppiumServiceBuilder();
-        builder.withIPAddress("127.0.0.1");
+        builder.withIPAddress("0.0.0.0");
         builder.usingPort(4724);
         builder.withCapabilities(cap);
         builder.withArgument(GeneralServerFlag.SESSION_OVERRIDE);
