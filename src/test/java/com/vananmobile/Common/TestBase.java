@@ -35,24 +35,24 @@ public class TestBase {
     public DesiredCapabilities capabilities;
     public WebDriver driver;
 
-    /*private String platform;
+    private String platform;
     private String platformVersion;
     private String deviceName;
     private String bName;
-    private String appiumUrl;*/
+    private String appiumUrl;
 
-    private String  platform = "Android";
+    /*private String  platform = "Android";
     private String  platformVersion = "7.0";
     private String deviceName = "83f0444552353841";
-    private String  bName = "chrome";
+    private String  bName = "chrome";*/
     private String  appiumUrl = "http://0.0.0.0:4723/wd/hub";
 
     private void getConfiguration() {
 
-        /*platform = System.getProperty("platformName");
-        platformVersion = System.getProperty("platformVersion");
-        deviceName = System.getProperty("deviceName");
-        bName = System.getProperty("browserName");*/
+        platform = System.getProperty("platformNames");
+        platformVersion = System.getProperty("platformVersions");
+        deviceName = System.getProperty("deviceNames");
+        bName = System.getProperty("browserNames");
 
     }
 
