@@ -39,7 +39,7 @@ public class TestBase {
     private String platformVersion;
     private String deviceName;
     private String bName;
-    private String appiumUrl;
+   // private String appiumUrl;
 
     /*private String  platform = "Android";
     private String  platformVersion = "7.0";
